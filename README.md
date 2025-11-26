@@ -111,6 +111,9 @@ gunicorn app:app
 
 ## 🖼 Example Output
 
+![Example output from the color analyzer](figures/result_example.png)
+The output page displays:
+
 * Original uploaded image
 * Pie chart showing filtered color distribution
 * Full color list with:
