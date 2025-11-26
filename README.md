@@ -5,6 +5,10 @@ It displays both the **original image** and a **pie chart of color proportions**
 
 ---
 
+🔗 Live demo: https://colors-in-image-identifier.onrender.com
+
+---
+
 ## 🚀 Features
 
 ### ✅ Upload any image (PNG, JPG, JPEG)

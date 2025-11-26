@@ -4,3 +4,4 @@ numpy
 scikit-learn
 colormath
 matplotlib
+gunicorn
