@@ -34,29 +34,39 @@ def analyze_image(image_path):
     if img.mode != 'RGB':
         img = img.convert('RGB')
 
+    # --- Keep a copy of the original for display ---
     img_array = np.array(img)
+    print(f"Original image loaded: {img_array.shape}")
 
-    # Reshape to pixels
-    pixels = img_array.reshape(-1, 3)
+    # --- Create a resized copy for clustering to save memory ---
+    img_small = img.copy()
+    MAX_SIZE = (800, 800)  # max width, height in pixels
+    img_small.thumbnail(MAX_SIZE, Image.LANCZOS)
 
-    # Detect dominant colors
-    n_colors = 20
+    small_array = np.array(img_small)
+    print(f"Resized image for KMeans: {small_array.shape}")
+
+    # Flatten pixels for KMeans
+    pixels = small_array.reshape(-1, 3)
+
+    # If the image is very small, reduce clusters
+    n_colors = min(20, len(pixels))
+    print(f"Using {n_colors} clusters")
+
+    # Detect dominant colors on the small image
     kmeans = KMeans(n_clusters=n_colors, random_state=42, n_init=10)
     kmeans.fit(pixels)
 
     centers = kmeans.cluster_centers_
     labels = kmeans.labels_
     color_counts = Counter(labels)
-
     total_pixels = len(labels)
-    all_colors = []
 
+    all_colors = []
     for i in range(n_colors):
         count = color_counts[i]
         percentage = (count / total_pixels) * 100
-
-        # Only keep non-tiny clusters
-        if percentage > 0.5:
+        if percentage > 0.5:  # keep small threshold
             color_rgb = tuple(map(int, centers[i]))
             hex_color = '#{:02x}{:02x}{:02x}'.format(*color_rgb)
 
@@ -67,13 +77,16 @@ def analyze_image(image_path):
                 'count': count
             })
 
-    # Sort and number
     all_colors.sort(key=lambda x: x['percentage'], reverse=True)
-    for idx, color in enumerate(all_colors, start=1):
-        color['name'] = f'Color {idx}'
-        color['number'] = idx
 
+    for i, color in enumerate(all_colors, start=1):
+        color['name'] = f'Color {i}'
+        color['number'] = i
+
+    # NOTE: we return the ORIGINAL img_array for display,
+    # but color stats come from the resized version.
     return img_array, all_colors
+
 
 
 def filter_colors(all_colors, total_pixels, exclude_list):
