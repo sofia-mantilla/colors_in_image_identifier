@@ -5,6 +5,22 @@ It displays both the **original image** and a **pie chart of color proportions**
 
 ---
 
+## 🖼 Example Output
+
+![Example output from the color analyzer](figures/result_example.png)
+The output page displays:
+
+* Original uploaded image
+* Pie chart showing filtered color distribution
+* Full color list with:
+
+  * Name
+  * Percentage
+  * RGB tuple
+  * HEX code
+
+---
+
 🔗 Live demo: https://colors-in-image-identifier.onrender.com
 
 ---
@@ -111,23 +127,7 @@ And run with:
 gunicorn app:app
 ```
 
----
 
-## 🖼 Example Output
-
-![Example output from the color analyzer](figures/result_example.png)
-The output page displays:
-
-* Original uploaded image
-* Pie chart showing filtered color distribution
-* Full color list with:
-
-  * Name
-  * Percentage
-  * RGB tuple
-  * HEX code
-
----
 
 ## 🧪 Notes
 
