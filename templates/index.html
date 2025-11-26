@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Analysis</title>
+
+    <style>
+        /* Full-screen center */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ececec;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* MEGA-SIZED card (×5) */
+        .container {
+            width: 90%;
+            max-width: 4500px;          /* 900 × 5 */
+            background-color: white;
+            padding: 300px;             /* 60 × 5 */
+            border-radius: 100px;       /* 20 × 5 */
+            box-shadow: 0 40px 150px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        /* MEGA title */
+        h1 {
+            font-size: 200px;           /* 40 × 5 */
+            margin-bottom: 150px;       /* 30 × 5 */
+            color: #333;
+        }
+
+        /* GIANT icon */
+        .title-icon {
+            font-size: 225px;           /* 45 × 5 */
+            display: block;
+            margin-bottom: 50px;        /* 10 × 5 */
+        }
+
+        /* GIANT file input */
+        input[type="file"] {
+            width: 100%;
+            padding: 90px;              /* 18 × 5 */
+            border-radius: 50px;        /* 10 × 5 */
+            border: 5px solid #bbb;
+            font-size: 90px;            /* 18 × 5 */
+        }
+
+        /* MEGA button */
+        input[type="submit"] {
+            margin-top: 150px;          /* 30 × 5 */
+            padding: 90px 250px;        /* 18×5, 50×5 */
+            font-size: 110px;           /* 22 × 5 */
+            color: white;
+            background-color: #0078ff;
+            border: none;
+            border-radius: 50px;        /* 10 × 5 */
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005fcc;
+        }
+
+        /* Error text HUGE */
+        .error {
+            color: red;
+            font-size: 90px;            /* 18 × 5 */
+            margin-bottom: 100px;       /* 20 × 5 */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <span class="title-icon">🎨</span>
+        <h1>Color Analysis</h1>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <input type="submit" value="Analyze Image">
+        </form>
+
+    </div>
+
+</body>
+</html>
