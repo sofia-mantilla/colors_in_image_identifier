@@ -11,101 +11,101 @@
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
-
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
 
-        /* ×5 CONTAINER */
         .container {
             width: 100%;
-            max-width: 6000px;          /* 1200 × 5 */
+            max-width: 1200px;
             background-color: white;
-            padding: 200px;             /* 40 × 5 */
-            border-radius: 50px;        /* 10 × 5 */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* ×5 TITLE */
         h1 {
             text-align: center;
-            font-size: 160px;           /* 32 × 5 */
-            margin-bottom: 150px;       /* 30 × 5 */
+            font-size: 28px;
+            margin-bottom: 25px;
         }
 
-        /* CARD FOR EXCLUSIONS */
+        /* Excluded colors card */
         .excluded-card {
             background: #fafafa;
-            border-radius: 40px;
-            border: 5px solid #ddd;
-            padding: 120px;
-            margin-bottom: 150px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 30px;
             text-align: center;
-            font-size: 80px;
+            font-size: 16px;
         }
 
         .excluded-label {
             display: block;
-            margin-bottom: 60px;
+            margin-bottom: 10px;
             font-weight: bold;
         }
 
         .exclude-input {
             width: 100%;
-            padding: 70px;
-            border-radius: 50px;
-            border: 5px solid #bbb;
-            font-size: 80px;
-            margin-bottom: 80px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #bbb;
+            font-size: 14px;
+            margin-bottom: 15px;
         }
 
         .update-btn {
-            padding: 70px 220px;
-            font-size: 90px;
-            border-radius: 50px;
+            padding: 10px 24px;
+            font-size: 14px;
+            border-radius: 8px;
             border: none;
             background-color: #28a745;
             color: white;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: background-color 0.2s ease;
         }
 
         .update-btn:hover {
             background-color: #1e7e34;
         }
 
-        /* ×5 LIST ITEMS */
         .color-item {
             display: flex;
             align-items: center;
-            margin-bottom: 50px;        /* 10 × 5 */
-            font-size: 80px;            /* 16 × 5 */
+            margin-bottom: 8px;
+            font-size: 14px;
         }
 
-        /* ×5 COLOR SQUARE */
         .color-sample {
-            width: 150px;               /* 30 × 5 */
-            height: 150px;              /* 30 × 5 */
-            margin-right: 50px;         /* 10 × 5 */
-            border: 5px solid #ddd;     /* 1 × 5 */
-            border-radius: 20px;        /* 4 × 5 */
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
 
-        /* Dynamic classes unchanged */
+        /* Dynamic classes for color squares */
         {% for color in colors %}
         .sample-{{ loop.index }} {
             background-color: {{ color.hex }};
         }
         {% endfor %}
 
-        /* ×5 LINK */
         a {
-            font-size: 80px;            /* 16 × 5 */
+            font-size: 14px;
             display: block;
-            margin-top: 150px;          /* 30 × 5 */
+            margin-top: 20px;
             text-align: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -116,7 +116,7 @@
 
         <!-- EXCLUDED COLORS CARD + REFRESH FORM -->
         <form method="post">
-            <!-- This hidden input is CRITICAL so Flask knows the image file -->
+            <!-- Hidden input so Flask knows which image to reuse -->
             <input type="hidden" name="filename" value="{{ filename }}">
 
             <div class="excluded-card">
@@ -139,17 +139,17 @@
             </div>
         </form>
 
-
-
-        <!-- ×5 IMAGE WIDTH -->
-        <img src="data:image/png;base64,{{ plot_data }}"
-             style="width: 4000px; height:auto; display:block; margin:0 auto;">
+        <!-- RESULT IMAGE (responsive) -->
+        <img
+            src="data:image/png;base64,{{ plot_data }}"
+            alt="Color analysis result"
+            style="max-width: 100%; height: auto; display: block; margin: 0 auto 20px;"
+        >
 
         <ul>
         {% for color in colors %}
             <li class="color-item">
                 <div class="color-sample sample-{{ loop.index }}"></div>
-
                 {{ color.name }}:
                 {{ "%.2f"|format(color.percentage) }}%
                 &nbsp;–&nbsp; RGB {{ color.rgb }}
